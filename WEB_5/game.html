@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./game.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Notable&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+
+<body>
+  <div class="emulator">
+    <img src="" alt="" class="emulImg">
+
+    <div class="container">
+      <div id="title"></div>
+      <div class="btnContainer">
+        <button class="mainBtn" onclick="intro(), go2()">STORY</button>
+        <button class="mainBtn" onclick="start(), go2()">GAME START</button>
+        <button class="mainBtn" onclick="guide(), go2()">GAME GUIDE</button>
+        <button class="mainBtn" onclick="setting()">SETTING</button>
+      </div>
+      <!-- <div class="logoContainer">
+        <div id="logo"></div>
+      </div> -->
+      <!-- 오디오 수정예정 -->
+      <div class="dimmedLayer"></div>
+    </div>
+
+
+    <div class="intro_container hide">
+      <img id="intro_img" src="./assets/dr_oh.png">
+      <div class="intro_dialog hide">와주셨군요, 트레이너님</div>
+      <div class="intro_dialog hide">저는 포켓몬을 연구하고 있는 오박사라고 합니다.</div>
+      <div class="intro_dialog hide">제가 트레이너님을 부른 이유는...</div>
+      <div class="intro_dialog hide">마을이 위기에 빠졌기 때문입니다...</div>
+      <div class="intro_dialog hide">연구소에서 탈출한 포켓몬들이 마을 사람들을 위협하고 있습니다.</div>
+      <div class="intro_dialog hide">최대한 저희 힘으로 막아보려 했지만 모두 실패하고 말았습니다.</div>
+      <div class="intro_dialog hide">우리 마을을 지켜주세요!</div>
+      <audio id="dlg1" src="./sound/dialog1.wav"></audio>
+      <audio id="dlg2" src="./sound/dialog2.wav"></audio>
+      <audio id="dlg3" src="./sound/dialog3.wav"></audio>
+      <audio id="dlg4" src="./sound/dialog4.wav"></audio>
+      <audio id="dlg5" src="./sound/dialog5.wav"></audio>
+      <audio id="dlg6" src="./sound/dialog6.wav"></audio>
+      <audio id="dlg7" src="./sound/dialog7.wav"></audio>
+      <div class="button_container">
+        <button class="intro_button" onclick="intro_skip()">skip</button>
+        <button class="intro_button" onclick="intro_next()">next</button>
+      </div>
+
+
+    </div>
+    <div class="level_container hide">
+      <div class="level" onclick="select(0)">easy</div>
+      <div class="level" onclick="select(1)">normal</div>
+      <div class="level" onclick="select(2)">hard</div>
+    </div>
+
+
+    <div class="guide_container hide">
+      <div class="guide">
+        게임 설명<br><br>
+        연구소에서 탈출한 포켓몬들을 물리쳐야 합니다.<br>
+        작은 몬스터들은 큰 몬스터를 따르는 특성이 있기 때문에<br>
+        큰 몬스터만 잡아도 몬스터 퇴치를 완료할 수 있습니다.<br><br><br>
+        스킬 설명<br><br>
+        스킬 1<br>
+        Q를 누르게 되면 스킬 1이 발동됩니다.<br>
+        몬스터볼이 일시적으로 커져 작은 몬스터들에 부딪혀도<br>
+        튕기지 않을 수 있습니다.<br>
+        큰 몬스터는 해당되지 않습니다.<br><br>
+        스킬2<br>
+        W를 누르게 되면 폭탄이 터집니다.<br>
+        폭탄에 영향을 받은 몬스터들은 목숨이 1 깎이게 됩니다.<br>
+      </div>
+      <button id="guide_go" onclick="guide_hide(), go2()">GO</button>
+    </div>
+
+
+    <div class="container settingContainer hide">
+      <div class="set chset">
+        <div class="bar">SELECT PLAYER</div>
+        <div class="chBox">
+          <div class="chImg jiwoo selected" onclick="ch(0)"></div>
+          <div class="chImg leeseul" onclick="ch(1)"></div>
+          <div class="chImg woong" onclick="ch(2)"></div>
+        </div>
+      </div>
+      <div class="set">
+        <div class="bar">SELECT BALL</div>
+        <div class="ballBox">
+          <div class="sc redBall" onclick="selectBall(0)"></div>
+          <div class="sc greenBall nonBall" onclick="selectBall(1)"></div>
+          <div class="sc goldBall nonBall" onclick="selectBall(2)"></div>
+        </div>
+      </div>
+      <div class="set">
+        <div class="bar">SELECT SOUND</div>
+        <div class="soundContainer">
+          <div class="sound" onclick="playAudio(0)">Black & White</div>
+          <div class="sound" onclick="playAudio(1)">Heart Gold & Soul</div>
+          <div class="sound" onclick="playAudio(2)">Battle Revolution</div>
+
+
+          <audio
+            id="sound0"
+            src="./sound/Pokemon - Black and White Music - Rival Battle .mp3"
+          ></audio>
+          <audio
+            id="sound1"
+            src="./sound/Pokemon - Heart Gold and Soul Silver - Route 27.mp3"
+          ></audio>
+          <audio
+            id="sound2"
+            src="./sound/Pokemon Battle Revolution - Title Screen.mp3"
+          ></audio>
+        </div>
+      </div>
+      <button id="go" onclick="go()">GO!</button>
+      <div class="dimmedLayer_black"></div>
+    </div>
+
+
+    <div class="canvas_container hide">
+      <canvas id="canvas" width="400" height="500"></canvas>
+      <canvas id="status" width="200" height="500"></canvas>
+    </div>
+    <div class="lose_container hide" onclick="reload()">Game Over</div>
+    
+    <div class="win_container hide" onclick="ending()">
+      <img src="./assets/stunned_pocketmon.png" id="win_img">
+      <div class="win_message">Win!</div>
+    </div>
+
+    <div class="end_container hide">
+      <img class="end_img" src="./assets/dr_oh.png">
+      <div class="ending_dialog hide">저희 마을을 구해주셨군요!</div>
+      <div class="ending_dialog hide">믿고 있었습니다, 트레이너님..!</div>
+      <div class="ending_dialog hide">감사합니다..</div>
+      <audio class="enddlg_aud" src="./sound/enddlg1.wav"></audio>
+      <audio class="enddlg_aud" src="./sound/enddlg2.wav"></audio>
+      <audio class="enddlg_aud" src="./sound/enddlg3.wav"></audio>
+      <div class="end_button_container">
+        <button class="ending_button" onclick="ending_skip()">skip</button>
+        <button class="ending_button" onclick="ending_next()">next</button>
+      </div>
+      <img class="village_img" src="./assets/village.png" onclick="ending_skip()">
+    </div>
+
+    <div class="end_container2 hide">
+      <img class="end_img" src="./assets/dr_oh.png">
+      <div class="ending_dialog2 hide">구구를 물리쳤다!</div>
+      <div class="ending_dialog2 hide">....</div>
+      <div class="ending_dialog2 hide">그런데 이상한 노래 소리가 들려온다..</div>
+      <div class="ending_dialog2 hide">푸린들이 습격했다. 마저 물리치자! (next)</div>
+      <audio class="enddlg_aud2" src="./sound/enddlg1.wav"></audio>
+      <audio class="enddlg_aud2" src="./sound/enddlg2.wav"></audio>
+      <audio class="enddlg_aud2" src="./sound/enddlg3.wav"></audio>
+      <audio class="enddlg_aud2" src="./sound/enddlg3.wav"></audio>
+      <div class="button_container" class="end_button_container">
+        <button class="ending_button" onclick="ending_skip()">skip</button>
+        <button class="ending_button" onclick="ending_next()">next</button>
+      </div>
+      <img class="village_img" src="./assets/village.png" onclick="ending_skip()">
+    </div>
+
+    <div class="end_container3 hide">
+      <img class="end_img" src="./assets/dr_oh.png">
+      <div class="ending_dialog3 hide">푸린을 물리쳤다!</div>
+      <div class="ending_dialog3 hide">...</div>
+      <div class="ending_dialog3 hide">어디선가 거대한 발소리가 들려온다...</div>
+      <div class="ending_dialog3 hide">딱구리 떼가 몰려들었다. 모두 해치우자!</div>
+      <audio class="enddlg_aud3" src="./sound/enddlg1.wav"></audio>
+      <audio class="enddlg_aud3" src="./sound/enddlg2.wav"></audio>
+      <audio class="enddlg_aud3" src="./sound/enddlg3.wav"></audio>
+      <audio class="enddlg_aud3" src="./sound/enddlg3.wav"></audio>
+      <div class="button_container" class="end_button_container">
+        <button class="ending_button" onclick="ending_skip()">skip</button>
+        <button class="ending_button" onclick="ending_next()">next</button>
+      </div>
+      <img class="village_img" src="./assets/village.png" onclick="ending_skip()">
+    </div>
+
+    <div class="end_container hide">
+      <img class="end_img" src="./assets/dr_oh.png">
+      <div class="ending_dialog hide">저희 마을을 구해주셨군요!</div>
+      <div class="ending_dialog hide">믿고 있었습니다, 트레이너님..!</div>
+      <div class="ending_dialog hide">감사합니다..</div>
+      <audio class="enddlg_aud" src="./sound/enddlg1.wav"></audio>
+      <audio class="enddlg_aud" src="./sound/enddlg2.wav"></audio>
+      <audio class="enddlg_aud" src="./sound/enddlg3.wav"></audio>
+      <div class="end_button_container">
+        <button class="ending_button" onclick="ending_skip()">skip</button>
+        <button class="ending_button" onclick="ending_next()">next</button>
+      </div>
+      <img class="village_img" src="./assets/village.png" onclick="ending_skip()">
+    </div>
+   
+
+    <audio src="./sound/select.mp3" id="selectSound"></audio>
+    <audio src="./sound/go.WAV" id="goSound"></audio>
+    <audio src="./sound/Boom Short.mp3" id="bombSound"></audio>
+    <audio src="./sound/lose sound.mp3" id="loseSound"></audio>
+    <audio src="./sound/win sound.mp3" id="winSound"></audio>
+    <script src="./game.js"></script>
+
+
+  </body>
+</html>
